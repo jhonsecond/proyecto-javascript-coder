@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sistema de Stock</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+	<header>
+		<h1>Sistema de Stock</h1>
+		<nav>
+			<ul>
+				<li><a href="#">Inicio</a></li>
+				<li><a href="#">Inventario</a></li>
+				<li><a href="#">Reportes</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<section id="inventario">
+			<h2>Inventario</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>Producto</th>
+						<th>Cantidad</th>
+						<th>Precio</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- Aquí se mostrarán los productos del inventario -->
+				</tbody>
+			</table>
+			<button id="btnAgregarProducto">Agregar Producto</button>
+		</section>
+	</main>
+
+	<!-- Ventana modal para agregar producto -->
+	<div id="modalAgregarProducto" class="modal">
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<h3>Agregar Producto</h3>
+			<form>
+				<label for="nombreProducto">Nombre del Producto:</label>
+				<input type="text" id="nombreProducto" required>
+				<label for="cantidadProducto">Cantidad:</label>
+				<input type="number" id="cantidadProducto" required>
+				<label for="precioProducto">Precio:</label>
+				<input type="number" id="precioProducto" required>
+				<button type="submit">Agregar</button>
+			</form>
+		</div>
+	</div>
+	<script src="stock.js"></script>
+</body>
+</html>
