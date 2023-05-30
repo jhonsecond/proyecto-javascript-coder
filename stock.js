@@ -22,6 +22,9 @@ function agregarProducto(nombre, cantidad, precio) {
 
   // Agrega el producto al inventario
   inventario.push(producto);
+
+  // Guarda el inventario en localStorage
+  guardarInventario();
 }
 
 // Función para mostrar los productos del inventario en la tabla
@@ -43,6 +46,9 @@ function mostrarInventario() {
     `;
     tablaInventario.appendChild(fila);
   });
+
+  // Guarda el inventario en localStorage
+  guardarInventario();
 }
 
 // Función para editar un producto del inventario
@@ -74,6 +80,19 @@ function eliminarProducto(index) {
   mostrarInventario();
 }
 
+// Función para guardar el inventario en localStorage
+function guardarInventario() {
+  localStorage.setItem('inventario', JSON.stringify(inventario));
+}
+
+// Función para obtener el inventario desde localStorage
+function obtenerInventario() {
+  const inventarioGuardado = localStorage.getItem('inventario');
+  if (inventarioGuardado) {
+    inventario = JSON.parse(inventarioGuardado);
+  }
+}
+
 // Agregar un producto cuando el usuario envía el formulario
 formAgregarProducto.addEventListener('submit', (event) => {
   event.preventDefault(); // Evita que el formulario se envíe automáticamente
@@ -86,19 +105,37 @@ formAgregarProducto.addEventListener('submit', (event) => {
   // Agrega el producto al inventario
   agregarProducto(nombre, cantidad, precio);
 
-  // Actualiza la tabla del inventario
-  mostrarInventario();
+  // Limpia los valores del formulario
+  inputNombreProducto.value = '';
+  inputCantidadProducto.value = 1;
+  inputPrecioProducto.value = '';
 
   // Cierra el modal
   modalAgregarProducto.style.display = 'none';
+
+  // Actualiza la tabla del inventario
+  mostrarInventario();
 });
 
-// Mostrar el modal para agregar un producto cuando el usuario hace clic en el botón correspondiente
+// Mostrar el modal para agregar un producto cuando se hace clic en el botón correspondiente
 btnAgregarProducto.addEventListener('click', () => {
   modalAgregarProducto.style.display = 'block';
 });
 
-// Cerrar el modal cuando el usuario hace clic en el botón de cerrar o fuera del modal
+// Cerrar el modal cuando se hace clic en la 'x'
 btnCerrarModal.addEventListener('click', () => {
   modalAgregarProducto.style.display = 'none';
+});
+
+// Cerrar el modal cuando se hace clic fuera del mismo
+window.addEventListener('click', (event) => {
+  if (event.target === modalAgregarProducto) {
+    modalAgregarProducto.style.display = 'none';
+  }
+});
+
+// Obtener el inventario desde localStorage al cargar la página
+window.addEventListener('load', () => {
+  obtenerInventario();
+  mostrarInventario();
 });
